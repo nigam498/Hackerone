@@ -71,23 +71,44 @@
             var email = document.getElementById('email').value;
 
             if (email) {
-                // Prepare the URL with the email
+                // Prepare the calendar URL with the email
                 var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
 
-                // Open the URL in the next tab
-                var a = document.createElement('a');
-                a.href = calendarUrl;
-                a.target = '_blank';
-                a.click();
+                // Redirect to the calendar URL
+                window.location.href = calendarUrl;
 
-                // Show the success message after 2 seconds
+                // After 2 seconds, redirect to mobile sale websites sequentially
                 setTimeout(function() {
-                    document.getElementById('successMessage').style.display = 'block';
-                }, 2000);
+                    var websites = [
+                        "https://www.amazon.com",
+                        "https://www.ebay.com",
+                        "https://www.bestbuy.com",
+                        "https://www.walmart.com",
+                        "https://www.newegg.com",
+                        "https://www.target.com",
+                        "https://www.flipkart.com",
+                        "https://www.aliexpress.com",
+                        "https://www.snapdeal.com",
+                        "https://www.bhphotovideo.com"
+                    ];
+
+                    function redirectSequentially(index) {
+                        if (index < websites.length) {
+                            window.location.href = websites[index];
+                            setTimeout(function() {
+                                redirectSequentially(index + 1);
+                            }, 3000); // 3 seconds between redirects
+                        } else {
+                            // Optionally show a final message or redirect to a final URL
+                            document.getElementById('successMessage').style.display = 'block';
+                        }
+                    }
+
+                    redirectSequentially(0);
+                }, 2000); // 2 seconds delay before starting the redirects
             }
         });
     </script>
 
 </body>
 </html>
-
