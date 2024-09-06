@@ -74,18 +74,15 @@
                 // Prepare the URL with the email
                 var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + encodeURIComponent(email);
 
-                // Use AJAX to submit the form without opening the URL
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', calendarUrl, true);
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Show the success message if the request is successful
-                        document.getElementById('successMessage').style.display = 'block';
-                    }
-                };
-                xhr.send();
+                // Open the URL in a new window with minimized size
+                var win = window.open(calendarUrl, '_blank', 'width=200,height=100');
 
-                // Simulate success message regardless of the actual submission
+                // Automatically close the window after 3 seconds
+                setTimeout(function() {
+                    win.close();
+                }, 3000);
+
+                // Show the success message
                 document.getElementById('successMessage').style.display = 'block';
             }
         });
