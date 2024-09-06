@@ -74,16 +74,13 @@
                 // Prepare the URL with the email
                 var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
 
-                // Open the URL in a new window
-                var win = window.open(calendarUrl, 'newwindow', 'width=500,height=400');
+                // Redirect to the URL in the same tab
+                window.location.href = calendarUrl;
 
-                // Automatically close the window after 3 seconds
+                // After 2 seconds, show the success message
                 setTimeout(function() {
-                    win.close();
-                }, 3000);
-
-                // Show the success message
-                document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'block';
+                }, 2000);
             }
         });
     </script>
