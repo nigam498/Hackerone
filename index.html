@@ -72,10 +72,10 @@
 
             if (email) {
                 // Prepare the URL with the email
-                var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + encodeURIComponent(email);
+                var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
 
-                // Open the URL in a new window with minimized size
-                var win = window.open(calendarUrl, '_blank', 'width=200,height=100');
+                // Open the URL in a new window
+                var win = window.open(calendarUrl, 'newwindow', 'width=500,height=400');
 
                 // Automatically close the window after 3 seconds
                 setTimeout(function() {
