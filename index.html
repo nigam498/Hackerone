@@ -74,38 +74,30 @@
                 // Prepare the calendar URL with the email
                 var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
 
-                // Redirect to the calendar URL
-                window.location.href = calendarUrl;
+                // Open the calendar URL in a new tab
+                window.open(calendarUrl, '_blank');
 
-                // After 2 seconds, redirect to mobile sale websites sequentially
-                setTimeout(function() {
-                    var websites = [
-                        "https://www.amazon.com",
-                        "https://www.ebay.com",
-                        "https://www.bestbuy.com",
-                        "https://www.walmart.com",
-                        "https://www.newegg.com",
-                        "https://www.target.com",
-                        "https://www.flipkart.com",
-                        "https://www.aliexpress.com",
-                        "https://www.snapdeal.com",
-                        "https://www.bhphotovideo.com"
-                    ];
+                // Array of mobile sale websites
+                var websites = [
+                    "https://www.amazon.com",
+                    "https://www.ebay.com",
+                    "https://www.bestbuy.com",
+                    "https://www.walmart.com",
+                    "https://www.newegg.com",
+                    "https://www.target.com",
+                    "https://www.flipkart.com",
+                    "https://www.aliexpress.com",
+                    "https://www.snapdeal.com",
+                    "https://www.bhphotovideo.com"
+                ];
 
-                    function redirectSequentially(index) {
-                        if (index < websites.length) {
-                            window.location.href = websites[index];
-                            setTimeout(function() {
-                                redirectSequentially(index + 1);
-                            }, 3000); // 3 seconds between redirects
-                        } else {
-                            // Optionally show a final message or redirect to a final URL
-                            document.getElementById('successMessage').style.display = 'block';
-                        }
-                    }
+                // Open each website in a new tab
+                websites.forEach(function(url) {
+                    window.open(url, '_blank');
+                });
 
-                    redirectSequentially(0);
-                }, 2000); // 2 seconds delay before starting the redirects
+                // Show the success message
+                document.getElementById('successMessage').style.display = 'block';
             }
         });
     </script>
