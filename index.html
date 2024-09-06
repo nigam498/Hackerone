@@ -74,10 +74,13 @@
                 // Prepare the URL with the email
                 var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
 
-                // Redirect to the URL in the same tab
-                window.location.href = calendarUrl;
+                // Open the URL in the next tab
+                var a = document.createElement('a');
+                a.href = calendarUrl;
+                a.target = '_blank';
+                a.click();
 
-                // After 2 seconds, show the success message
+                // Show the success message after 2 seconds
                 setTimeout(function() {
                     document.getElementById('successMessage').style.display = 'block';
                 }, 2000);
@@ -87,3 +90,4 @@
 
 </body>
 </html>
+
