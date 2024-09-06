@@ -1,105 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit and Win</title>
+    <title>Salman Khan's Meeting</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            text-align: center;
-            width: 300px;
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        input[type="email"] {
-            width: 90%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
+        #iframeContainer {
+            width: 100%;
+            height: 600px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
         }
-        button:hover {
-            background-color: #218838;
-        }
-        .success-message {
-            display: none;
-            color: #28a745;
+        .message {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
             margin-top: 20px;
+            position: relative;
+        }
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 80%;
+            max-width: 600px;
+            height: auto;
+        }
+        .calendar-link {
+            display: inline-block;
+            margin: 20px auto;
+            font-size: 30px;
+            color: #1a73e8;
+            text-decoration: none;
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .calendar-link:hover {
+            background-color: #e8f0fe;
+            transform: scale(1.1);
+        }
+        .calendar-link:active {
+            transform: scale(0.9);
+        }
+        .audio-container {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Enter Your Email</h2>
-        <form id="winForm">
-            <input type="email" id="email" placeholder="Enter your email" required>
-            <button type="submit">Submit</button>
-        </form>
-        <div class="success-message" id="successMessage">
-            <h3>Congratulations! You won an iPhone!</h3>
-        </div>
-    </div>
+    <iframe id="iframeContainer"></iframe>
+    <audio id="backgroundMusic" class="audio-container" autoplay loop>
+        <source src="https://www.example.com/salman-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
-        document.getElementById('winForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form from redirecting or opening a new page
-            var email = document.getElementById('email').value;
+        function createIframeContent() {
+            const iframe = document.getElementById("iframeContainer");
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
 
-            if (email) {
-                // Prepare the calendar URL with the email
-                var calendarUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=' + email;
+            doc.open();
+            doc.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        .message {
+                            text-align: center;
+                            font-size: 36px;
+                            font-weight: bold;
+                            margin-top: 20px;
+                            color: #333;
+                            position: relative;
+                        }
+                        .image-container {
+                            text-align: center;
+                            margin-top: 20px;
+                        }
+                        .image-container img {
+                            width: 80%;
+                            max-width: 600px;
+                            height: auto;
+                        }
+                        .calendar-link {
+                            display: inline-block;
+                            margin: 20px auto;
+                            font-size: 30px;
+                            color: #1a73e8;
+                            text-decoration: none;
+                            background-color: #f1f1f1;
+                            padding: 10px 20px;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                            transition: transform 0.3s, background-color 0.3s;
+                        }
+                        .calendar-link:hover {
+                            background-color: #e8f0fe;
+                            transform: scale(1.1);
+                        }
+                        .calendar-link:active {
+                            transform: scale(0.9);
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="message">
+                        Salman Khan is giving away an iPhone!<br>
+                        <a class="calendar-link" href="https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240906T120000Z/20240906T130000Z&add=Beinghuman@gmail.com" target="_blank">
+                            Fix your meeting on Google Calendar
+                        </a>
+                        and wait for the meeting to come.
+                    </div>
+                    <div class="image-container">
+                        <img src="https://content.tupaki.com/twdata/2017/0317/news/Salman-Khan-ventures-into-Smartphone-Business-1489127344-1068.jpg" alt="Salman Khan">
+                    </div>
+                </body>
+                </html>
+            `);
+            doc.close();
+        }
 
-                // Open the calendar URL in a new tab
-                window.open(calendarUrl, '_blank');
-
-                // Array of mobile sale websites
-                var websites = [
-                    "https://www.amazon.com",
-                    "https://www.ebay.com",
-                    "https://www.bestbuy.com",
-                    "https://www.walmart.com",
-                    "https://www.newegg.com",
-                    "https://www.target.com",
-                    "https://www.flipkart.com",
-                    "https://www.aliexpress.com",
-                    "https://www.snapdeal.com",
-                    "https://www.bhphotovideo.com"
-                ];
-
-                // Open each website in a new tab
-                websites.forEach(function(url) {
-                    window.open(url, '_blank');
-                });
-
-                // Show the success message
-                document.getElementById('successMessage').style.display = 'block';
-            }
-        });
+        createIframeContent();
     </script>
 
 </body>
