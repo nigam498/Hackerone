@@ -106,18 +106,22 @@
 
 <script>
     function calculateTries() {
+        // Retrieve input values
         var finalAmount = parseFloat(document.getElementById('finalAmount').value);
         var rateOfReturn = parseFloat(document.getElementById('rateOfReturn').value) / 100;
         var initialAmount = parseFloat(document.getElementById('initialAmount').value);
-        
+
+        // Validate input
         if (isNaN(finalAmount) || isNaN(rateOfReturn) || isNaN(initialAmount) || initialAmount <= 0) {
             alert("Please enter valid numbers in all fields.");
             return;
         }
-        
+
+        // Calculate the number of tries needed
         var n = Math.log(finalAmount / initialAmount) / Math.log(1 + rateOfReturn);
         n = Math.ceil(n); // Round up to the next whole number
 
+        // Display the result
         document.getElementById('result').innerText = "You need approximately " + n + " tries to reach ₹" + finalAmount;
     }
 </script>
